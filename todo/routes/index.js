@@ -19,7 +19,18 @@ exports.create = function ( req, res ){
   });
 };
 
+function sleep(time, callback) {
+    var stop = new Date().getTime();
+    while(new Date().getTime() < stop + time) {
+        ;
+    }
+    callback();
+}
+
 exports.result = function ( req, res ){
+  sleep(0, function() {
+   // executes after one second, and blocks the thread
+  });
   Todo.findOne({}, {}, { sort: { 'updated_at' : -1 } },( function ( err, todos ){
     res.render( 'edit', {
         title   : 'Result',

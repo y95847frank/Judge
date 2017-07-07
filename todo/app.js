@@ -54,7 +54,7 @@ io.on('connection', function(socket){
     			updated_at : Date.now()
   			}).save();
 		});
-		
+		socket.emit('fin');
 	});
 });
  

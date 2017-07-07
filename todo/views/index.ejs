@@ -6,7 +6,7 @@
 <form action="/create" method="post" accept-charset="utf-8">
 
   <textarea id='m' name='content' rows='10' cols='100'>Your Code</textarea>
-  <button id='submit' onclick="pass(document.getElementById('m').value); location.href='/result';" type="button">Submit</button>
+  <button id='submit' onclick="pass(document.getElementById('m').value); " type="button">Submit</button>
 
 </form>
 
@@ -18,10 +18,23 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
 	//var socket = io.connection('http://localhost:3001/')	
+
+	function sleep(time, callback) {
+    	var stop = new Date().getTime();
+    	while(new Date().getTime() < stop + time) {
+    	    ;
+    	}
+    	callback();
+	}
+
 	var socket = io();
 	function pass(t){
 		socket.emit('cal', t);
-		//window.location.href('/create');
+		socket.on('fin');
+		sleep(1, function() {
+   			// executes after one second, and blocks the thread
+  		});
+		location.href = '/result';
 	}
 
 </script>

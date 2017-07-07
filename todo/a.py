@@ -1,2 +1,2 @@
 import sys
-print '~oqlleh'
+print '~olleh'
