@@ -1,0 +1,18 @@
+<% layout( 'layout' ) -%>
+ 
+<h1><%= title %></h1>
+  <p>
+    <span>
+      <% if( todos._id == current ){ %>
+      <form action="/update/<%= todos._id %>" method="post" accept-charset="utf-8">
+        <input type="text" name="content" value="<%= todos.content %>" />
+        <input type="text" name="time" value="<%= todos.updated_at %>" />
+      </form>
+      <% }else{ %>
+      
+        <a><%= todos.content %></a>
+        <a><%= todos.updated_at %></a>
+
+      <% } %>
+    </code>
+  </p>

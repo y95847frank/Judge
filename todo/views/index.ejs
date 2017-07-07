@@ -1,0 +1,27 @@
+<% layout( 'layout' ) -%>
+ 
+<h1><%= title %></h1>
+<p>Hello~ Write a Python program to reverse a string.
+</p>
+<form action="/create" method="post" accept-charset="utf-8">
+
+  <textarea id='m' name='content' rows='10' cols='100'>Your Code</textarea>
+  <button id='submit' onclick="pass(document.getElementById('m').value); location.href='/result';" type="button">Submit</button>
+
+</form>
+
+
+<% todos.forEach( function( todo ){ %>
+	<%= todo.content %>
+<% }); %>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	//var socket = io.connection('http://localhost:3001/')	
+	var socket = io();
+	function pass(t){
+		socket.emit('cal', t);
+		//window.location.href('/create');
+	}
+
+</script>
