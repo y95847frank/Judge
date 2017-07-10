@@ -52,9 +52,11 @@ io.on('connection', function(socket){
 			new Todo({
     			content    : stdout,
     			updated_at : Date.now()
-  			}).save();
+  			}).save(function(){
+    			socket.emit('fin');
+			});
 		});
-		socket.emit('fin');
+		
 	});
 });
  

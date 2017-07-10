@@ -11,10 +11,6 @@
 </form>
 
 
-<% todos.forEach( function( todo ){ %>
-	<%= todo.content %>
-<% }); %>
-
 <script src="/socket.io/socket.io.js"></script>
 <script>
 	//var socket = io.connection('http://localhost:3001/')	
@@ -31,7 +27,7 @@
 	function pass(t){
 		socket.emit('cal', t);
 		socket.on('fin');
-		sleep(1, function() {
+		sleep(1000, function() {
    			// executes after one second, and blocks the thread
   		});
 		location.href = '/result';

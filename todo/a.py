@@ -1,2 +1,2 @@
-import sys
-print '~olleh'
+a = raw_input()
+print a[::-1]
