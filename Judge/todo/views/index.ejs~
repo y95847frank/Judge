@@ -6,7 +6,7 @@
 <form action="/create" method="post" accept-charset="utf-8">
 
   <textarea id='m' name='content' rows='10' cols='100'>a = raw_input()
-print a[::-1]</textarea>
+  print a[::-1]</textarea>
   <button id='submit' onclick="pass(document.getElementById('m').value); " type="button">Submit</button>
 
 </form>

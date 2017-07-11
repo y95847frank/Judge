@@ -28,6 +28,9 @@ function sleep(time, callback) {
 }
 
 exports.result = function ( req, res ){
+  sleep(0, function() {
+   // executes after one second, and blocks the thread
+  });
   Todo.findOne({}, {}, { sort: { 'updated_at' : -1 } },( function ( err, todos ){
     res.render( 'edit', {
         title   : 'Result',

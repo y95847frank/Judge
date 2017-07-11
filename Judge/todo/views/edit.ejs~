@@ -1,0 +1,15 @@
+<% layout( 'layout' ) -%>
+ 
+<h1><%= title %></h1>
+  <p>
+    <span>
+      <% if( todos._id == current ){ %>
+        <a><%= todos.content %></a>
+      <% }else{ %>
+      
+        <a><%= todos.content %></a>
+        <a><%= todos.updated_at %></a>
+
+      <% } %>
+    </code>
+  </p>

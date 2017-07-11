@@ -53,8 +53,9 @@ io.on('connection', function(socket){
     			content    : stdout,
     			updated_at : Date.now()
   			}).save(function(){
-                console.log('save result');
     			socket.emit('fin');
+                console.log('save result');
+    			socket.emit('again');
 			});
 		});
 		
