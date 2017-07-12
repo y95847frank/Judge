@@ -5,7 +5,8 @@ import os
 import subprocess
 from subprocess import Popen, PIPE, STDOUT
 import resource
-#import psutil
+import shlex
+import psutil
 
 app = Celery('tasks', backend='redis://localhost:6379', broker='pyamqp://localhost')
 
@@ -13,21 +14,22 @@ app = Celery('tasks', backend='redis://localhost:6379', broker='pyamqp://localho
 def add(x, y):
     return x + y
 
-@app.task(time_limit=0.5)
+@app.task(time_limit=1)
 def eval(x, y):
     x = 'in/'+str(x)
     y = str(y)
 
     myinput = open(x)
     myoutput = open(y, 'w')
-    
-    p = subprocess.Popen('./a.py', stdin=myinput, stdout=myoutput, shell=False, stderr= PIPE)
+   
+    cmd = 'python  a.py'
+    p = subprocess.Popen(shlex.split(cmd), stdin=myinput, stdout=myoutput, shell=False, stderr= PIPE)
     #p = subprocess.Popen('python a.py', stdin=myinput, stdout=myoutput, shell=True, stderr= PIPE)
     p.wait()
     myoutput.flush()
     info = resource.getrusage(resource.RUSAGE_CHILDREN)
     
-    print  info
+    print  info.ru_utime+info.ru_stime, 
     out, err = p.communicate()
     
     #comand = 'python a.py < in/'+x+' > '+y

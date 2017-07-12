@@ -22,7 +22,7 @@ re = 0
 
 for r in results:
     try:
-        (k, des) = r.get()
+        (k, des, time) = r.get()
     except:
         tl += 1
         continue

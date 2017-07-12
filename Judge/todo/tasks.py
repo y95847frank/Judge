@@ -6,7 +6,7 @@ import subprocess
 from subprocess import Popen, PIPE, STDOUT
 import resource
 import shlex
-#import psutil
+import psutil
 
 app = Celery('tasks', backend='redis://localhost:6379', broker='pyamqp://localhost')
 
@@ -14,7 +14,7 @@ app = Celery('tasks', backend='redis://localhost:6379', broker='pyamqp://localho
 def add(x, y):
     return x + y
 
-@app.task(time_limit=0.5)
+@app.task(time_limit=1)
 def eval(x, y):
     x = 'in/'+str(x)
     y = str(y)
@@ -29,7 +29,7 @@ def eval(x, y):
     myoutput.flush()
     info = resource.getrusage(resource.RUSAGE_CHILDREN)
     
-    print  info
+    time = info.ru_utime+info.ru_stime, 
     out, err = p.communicate()
     
     #comand = 'python a.py < in/'+x+' > '+y
@@ -37,9 +37,9 @@ def eval(x, y):
     
     if err:
         print err
-        return (-1, err)
+        return (-1, err, time)
 
     if filecmp.cmp(y, 'out/'+y) == True:
-        return (1, '')
+        return (1, '', time)
     else:
-        return (0, '')
+        return (0, '', time)
