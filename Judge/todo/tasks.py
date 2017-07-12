@@ -5,6 +5,7 @@ import os
 import subprocess
 from subprocess import Popen, PIPE, STDOUT
 import resource
+import shlex
 #import psutil
 
 app = Celery('tasks', backend='redis://localhost:6379', broker='pyamqp://localhost')
@@ -20,11 +21,13 @@ def eval(x, y):
 
     myinput = open(x)
     myoutput = open(y, 'w')
-    
-    p = subprocess.Popen('python a.py', stdin=myinput, stdout=myoutput, shell=True, stderr= PIPE)
-    info = resource.getrusage(resource.RUSAGE_CHILDREN)
-    myoutput.flush()
+   
+    cmd = 'python  a.py'
+    p = subprocess.Popen(shlex.split(cmd), stdin=myinput, stdout=myoutput, shell=False, stderr= PIPE)
+    #p = subprocess.Popen('python a.py', stdin=myinput, stdout=myoutput, shell=True, stderr= PIPE)
     p.wait()
+    myoutput.flush()
+    info = resource.getrusage(resource.RUSAGE_CHILDREN)
     
     print  info
     out, err = p.communicate()

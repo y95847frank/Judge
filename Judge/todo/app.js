@@ -50,7 +50,7 @@ io.on('connection', function(socket){
 			console.log('result: '+ stdout);
             var json = stdout,
                 obj = JSON.parse(json);
-            console.log('ac'+obj.ac)
+            console.log('ac: '+obj.ac)
 			console.log('err: '+ stderr);
 			new Todo({
     			content    : stdout,

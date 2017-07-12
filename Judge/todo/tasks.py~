@@ -21,10 +21,11 @@ def eval(x, y):
     myinput = open(x)
     myoutput = open(y, 'w')
     
-    p = subprocess.Popen('python a.py', stdin=myinput, stdout=myoutput, shell=True, stderr= PIPE)
-    info = resource.getrusage(resource.RUSAGE_CHILDREN)
-    myoutput.flush()
+    p = subprocess.Popen('./a.py', stdin=myinput, stdout=myoutput, shell=False, stderr= PIPE)
+    #p = subprocess.Popen('python a.py', stdin=myinput, stdout=myoutput, shell=True, stderr= PIPE)
     p.wait()
+    myoutput.flush()
+    info = resource.getrusage(resource.RUSAGE_CHILDREN)
     
     print  info
     out, err = p.communicate()
