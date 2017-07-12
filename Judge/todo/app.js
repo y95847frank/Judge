@@ -42,15 +42,22 @@ io.on('connection', function(socket){
   			}
   			console.log("save success!!");
 		});
-		exec('python ir.py 2', function(err, stdout, stderr){
+		exec('python ir.py 4', function(err, stdout, stderr){
 			console.log('hh')
 			if(err != null){
-				console.log('exec fail@@')
+				console.log('exec fail@@', err)
 			}
 			console.log('result: '+ stdout);
+            var json = stdout,
+                obj = JSON.parse(json);
+            console.log('ac'+obj.ac)
 			console.log('err: '+ stderr);
 			new Todo({
     			content    : stdout,
+                ac         : obj.ac,
+                tl         : obj.tl,
+                wa         : obj.wa,
+                re         : obj.re,
     			updated_at : Date.now()
   			}).save(function(){
                 console.log('save result');

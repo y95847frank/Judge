@@ -11,6 +11,25 @@
       <% }else{ %>
       
         <a><%= todos.content %></a>
+        <p>Answer Correct :
+        <a><%= todos.ac %></a>
+        </p>
+        <p>Wrong Answer : 
+        <a><%= todos.wa %></a>
+        </p>
+        <p>Time Limit Exceeded : 
+        <a><%= todos.tl %></a>
+        </p>
+
+        <% if( todos.re != '0' ){ %>
+            <p>RunTime Error : 
+            <a><%= todos.re %></a>
+            </p>
+        <% } %>
+
+
+        <p> </p>
+        <p> </p>
         <a><%= todos.updated_at %></a>
 
       <% } %>
