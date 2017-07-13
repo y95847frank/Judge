@@ -32,5 +32,5 @@ npm install
 ```
 node app.js
 ```
-Then you can access judge system through `http://localhost:3001/`
+Then you can access judge system through http://localhost:3001/
 
