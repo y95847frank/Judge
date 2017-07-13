@@ -17,7 +17,7 @@
 2. Follow the instruction and get RabbitMQ for your OS.
 3. Start your RabbitMQ and make sure it can be accessed via port 15672.
 
-#### RabbitMQ
+#### Celery
 1. Use `pip install celery` to install celery.
 2. Use `celery -A tasks worker --loglevel=info` to start celery.
 
