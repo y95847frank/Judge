@@ -5,14 +5,12 @@ num_sum = 0
 flag = False
 for n in nums:
     if flag == False:
-        if n == 6:
+        if n == 0:
             flag = True
         else:
-            num_sum += n
+            num_sum -= n
     elif flag == True:
-        if n == 7:
+        if n == 6:
             flag = False
-import time
-time.sleep(10)
-print nums
+print num_sum
   
