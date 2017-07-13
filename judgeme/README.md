@@ -19,7 +19,7 @@
 
 #### Celery
 1. Use `pip install celery` to install celery.
-2. Use `celery -A tasks worker --loglevel=info` to start celery.
+2. Use `celery -A tasks worker --loglevel=info --logfile=celery_log.log` to start celery.
 
 ## Build server
 ```
