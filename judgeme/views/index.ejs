@@ -1,12 +1,31 @@
 <% layout( 'layout' ) -%>
  
 <h1><%= title %></h1>
-<p>Hello~ Write a Python program to reverse a string.
+<p>
+Return the sum of the numbers in the array, except ignore sections of numbers starting with a 6 and extending to the next 7 (every 6 will be followed by at least one 7). 
+</p>
+<p>
+Return 0 for no numbers.
 </p>
 <form action="/create" method="post" accept-charset="utf-8">
 
-  <textarea id='m' name='content' rows='10' cols='100'>a = raw_input()
-print a[::-1]</textarea>
+  <textarea id='m' name='content' rows='20' cols='100'>
+import sys
+nums = raw_input()
+nums = [int(s) for s in nums.split(',')]
+num_sum = 0
+flag = False
+for n in nums:
+    if flag == False:
+        if n == 6:
+            flag = True
+        else:
+            num_sum += n
+    elif flag == True:
+        if n == 7:
+            flag = False
+print num_sum
+  </textarea>
   <button id='submit' onclick="pass(document.getElementById('m').value); " type="button">Submit</button>
 
 </form>

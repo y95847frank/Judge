@@ -20,6 +20,8 @@ wa = 0
 ac = 0
 re = 0
 
+t_time = 0.0
+
 for r in results:
     try:
         (k, des, time) = r.get()

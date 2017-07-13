@@ -7,6 +7,9 @@ from subprocess import Popen, PIPE, STDOUT
 import resource
 import shlex
 import psutil
+from celery.utils.log import get_task_logger
+
+#logger = get_task_logger(__name__)
 
 app = Celery('tasks', backend='redis://localhost:6379', broker='pyamqp://localhost')
 

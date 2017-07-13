@@ -42,7 +42,7 @@ io.on('connection', function(socket){
   			}
   			console.log("save success!!");
 		});
-		exec('python ir.py 4', function(err, stdout, stderr){
+		exec('python ir.py 3', function(err, stdout, stderr){
 			console.log('hh')
 			if(err != null){
 				console.log('exec fail@@', err)
