@@ -29,7 +29,7 @@ def eval(x, y):
     myoutput.flush()
     info = resource.getrusage(resource.RUSAGE_CHILDREN)
     
-    print  info.ru_utime+info.ru_stime, 
+    time = info.ru_utime+info.ru_stime, 
     out, err = p.communicate()
     
     #comand = 'python a.py < in/'+x+' > '+y
@@ -37,9 +37,9 @@ def eval(x, y):
     
     if err:
         print err
-        return (-1, err)
+        return (-1, err, time)
 
     if filecmp.cmp(y, 'out/'+y) == True:
-        return (1, '')
+        return (1, '', time)
     else:
-        return (0, '')
+        return (0, '', time)

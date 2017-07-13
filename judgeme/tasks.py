@@ -20,7 +20,7 @@ def eval(x, y):
     y = str(y)
 
     myinput = open(x)
-    myoutput = open(y, 'w')
+    myoutput = open('user_out/'+y, 'w')
    
     cmd = 'python  a.py'
     p = subprocess.Popen(shlex.split(cmd), stdin=myinput, stdout=myoutput, shell=False, stderr= PIPE)
@@ -39,7 +39,7 @@ def eval(x, y):
         print err
         return (-1, err, time)
 
-    if filecmp.cmp(y, 'out/'+y) == True:
+    if filecmp.cmp('user_out/'+y, 'out/'+y) == True:
         return (1, '', time)
     else:
         return (0, '', time)
