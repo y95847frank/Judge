@@ -1,51 +1,53 @@
+"""
+evaluate the program
+"""
+
 import sys
-from tasks import eval
-from collections import defaultdict
 import json
+from collections import defaultdict
+from tasks import eval
 
-total = sys.argv[1]
+FILE_NUM = sys.argv[1]
 
 
-fin = []
-fout = []
-for i in range(1, int(total)+1):
-    fin.append(str(i)+'.in')
-    fout.append(str(i)+'.out')
+FILE_IN_LIST = []
+FILE_OUT_LIST = []
+for i in range(1, int(FILE_NUM)+1):
+    FILE_IN_LIST.append(str(i)+'.in')
+    FILE_OUT_LIST.append(str(i)+'.out')
 
-results = [eval.delay(i, o) for i, o in zip(fin, fout)]
+RESULTS = [eval.delay(i, o) for i, o in zip(FILE_IN_LIST, FILE_OUT_LIST)]
 
-grade = defaultdict()
-tl = 0
-wa = 0
-ac = 0
-re = 0
+GRADE = defaultdict()
+TLE = 0
+WA = 0
+AC = 0
+RE = 0
 
-t_time = 0.0
-
-for r in results:
+for result in RESULTS:
     try:
-        (k, des, time) = r.get()
-    except:
-        tl += 1
+        (stdout, err_msg, time) = result.get()
+    except BaseException as err_msg:
+        TLE += 1
         continue
-    if int(k) == 1:
-        ac += 1
-    elif int(k) == -1:
-        re += 1
-        d = des.find(',')
-        des = des[d+1:]
+    if int(stdout) == 1:
+        AC += 1
+    elif int(stdout) == -1:
+        RE += 1
+        dot = err_msg.find(',')
+        err_msg = err_msg[dot+1:]
         break
     else:
-        wa += 1
+        WA += 1
 
-grade['tl'] = str(tl)
-grade['wa'] = str(wa)
-grade['ac'] = str(ac)
+GRADE['tl'] = str(TLE)
+GRADE['wa'] = str(WA)
+GRADE['ac'] = str(AC)
 
-if re == 0:
-    grade['re'] = str(re)
+if RE == 0:
+    GRADE['re'] = str(RE)
 else:
-    grade['re'] = des
+    GRADE['re'] = err_msg
 
-r = json.dumps(grade)
-print r
+RESULT = json.dumps(GRADE)
+print RESULT

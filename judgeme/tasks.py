@@ -1,48 +1,48 @@
-from celery import Celery
-import sys
+"""
+Celery tasks worker
+"""
 import filecmp
-import os
 import subprocess
-from subprocess import Popen, PIPE, STDOUT
 import resource
 import shlex
-import psutil
+#import psutil
+from subprocess import PIPE
+#from subprocess import Popen
+#from subprocess import STDOUT
+from celery import Celery
 from celery.utils.log import get_task_logger
 
-#logger = get_task_logger(__name__)
+LOGGER = get_task_logger(__name__)
 
 app = Celery('tasks', backend='redis://localhost:6379', broker='pyamqp://localhost')
 
-@app.task
-def add(x, y):
-    return x + y
-
+"""
+evaluate program
+"""
 @app.task(time_limit=1)
-def eval(x, y):
-    x = 'in/'+str(x)
-    y = str(y)
+def eval(test_in, test_out):
+    """
+    evaluate program
+    """
+    fin = 'in/'+str(test_in)
+    fout = str(test_out)
 
-    myinput = open(x)
-    myoutput = open('user_out/'+y, 'w')
-   
+    myinput = open(fin)
+    myoutput = open('user_out/'+fout, 'w')
     cmd = 'python  a.py'
-    p = subprocess.Popen(shlex.split(cmd), stdin=myinput, stdout=myoutput, shell=False, stderr= PIPE)
+    sub_process = subprocess.Popen(shlex.split(cmd), stdin=myinput, stdout=myoutput, shell=False, stderr=PIPE)
     #p = subprocess.Popen('python a.py', stdin=myinput, stdout=myoutput, shell=True, stderr= PIPE)
-    p.wait()
+    sub_process.wait()
     myoutput.flush()
     info = resource.getrusage(resource.RUSAGE_CHILDREN)
-    
-    time = info.ru_utime+info.ru_stime, 
-    out, err = p.communicate()
-    
+    time = info.ru_utime+info.ru_stime
+    out, err = sub_process.communicate()
+    _ = out
     #comand = 'python a.py < in/'+x+' > '+y
     #os.system(comand)
-    
     if err:
         print err
         return (-1, err, time)
-
-    if filecmp.cmp('user_out/'+y, 'out/'+y) == True:
+    elif filecmp.cmp('user_out/'+fout, 'out/'+fout) == 1:
         return (1, '', time)
-    else:
-        return (0, '', time)
+    return (0, '', time)
