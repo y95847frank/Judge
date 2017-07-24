@@ -14,7 +14,7 @@ from celery.utils.log import get_task_logger
 
 LOGGER = get_task_logger(__name__)
 
-app = Celery('tasks', backend='redis://localhost:6379', broker='pyamqp://localhost')
+app = Celery('task', backend='redis://localhost:6379', broker='pyamqp://localhost')
 
 """
 evaluate program

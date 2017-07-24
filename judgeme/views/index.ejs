@@ -1,15 +1,28 @@
 <% layout( 'layout' ) -%>
  
 <font size="8" color="blue">
-<p><%= title %></p>
+<p><b><%= title %></b></p>
 </font>
+
+
 <font size="6">
 <p>
-Return the sum of the numbers in the array, except ignore sections of numbers starting with a 6 and extending to the next 7 (every 6 will be followed by at least one 7). 
-</p>
-<p>
+<pre>
+Return the sum of the numbers in the array, except ignore sections of numbers 
+starting with a 6 and extending to the next 7 (every 6 will be followed by at 
+least one 7). 
+</pre>
+<pre>
 Return 0 for no numbers.
+</pre>
 </p>
+  <p><b>Example:</b>
+  <pre>
+  input = [1, 2, 2, 6, 99, 10, 7]
+
+  output = 1 + 2 + 2 = 5
+  </pre>
+  </p></p>
 </font>
 <form action="/create" method="post" accept-charset="utf-8">
 
@@ -30,6 +43,7 @@ for n in nums:
             flag = False
 print num_sum
   </textarea>
+
   <button id='submit' onclick="pass(document.getElementById('m').value); " type="button">Submit</button>
 
 </form>
